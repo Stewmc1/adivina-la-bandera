@@ -9,16 +9,14 @@
 }
 
 .bandera {
-  width: 410px;
-  height: 350px;
+  width: 90%;
+  max-width: 410px;
+  height: auto;
   object-fit: contain;
-  border: 1px solid transparent;
-  display: block;
   margin: 0 auto;
 }
 
 .box {
-  background: rgb(107, 101, 207);
   background: linear-gradient(
     173deg,
     rgba(107, 101, 207, 1) 11%,
@@ -29,10 +27,10 @@
   border-radius: 8px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
   text-align: center;
-  width: 600px;
-  height: 750px;
-  margin: auto;
-  margin-top: 120px;
+  width: 90%;
+  max-width: 600px;
+  height: auto;
+  margin: 20px auto;
   position: relative;
 }
 
@@ -44,8 +42,10 @@
   border-radius: 50px;
   cursor: pointer;
   transition: 0.1s;
-  margin: 13px;
-  width: 300px;
+  margin: 15px auto;
+  width: 60%;
+  display: block;
+  max-width: 300px;
 }
 .opcionRespuesta:hover {
   transform: scale(1.1);
@@ -74,8 +74,10 @@
   border-radius: 50px;
   cursor: pointer;
   transition: 0.1s;
-  margin: 15px;
-  width: 300px;
+  margin: 10px auto;
+  width: 60%;
+  max-width: 300px;
+  display: block;
   align-items: center;
 }
 
@@ -84,14 +86,13 @@
 }
 
 .progreso {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   text-align: right;
 }
 
 ul {
-  list-style-type: none;
-  margin: 0px;
+  margin: 0px auto;
   padding: 0px;
   overflow: hidden;
   top: 0px;
@@ -116,10 +117,18 @@ li {
   cursor: pointer;
   display: flex;
   float: right;
+  margin: 10px auto;
+  display: block;
 }
 
 .sonido img {
   display: block;
+}
+
+.tiempo {
+  display: block;
+  text-decoration: none;
+  list-style-type: none;
 }
 
 .pistaBtn {
@@ -140,9 +149,55 @@ li {
   font-size: 12px;
 }
 
-.tiempo {
-  display: block;
-  text-decoration: none;
-  list-style-type: none;
-  float: right;
+@media (max-width: 768px) {
+  .box {
+    padding: 10px 15px;
+    margin-top: 60px;
+  }
+
+  .bandera {
+    width: 80%;
+  }
+
+  .opcionRespuesta,
+  .continuar,
+  .pistaBtn {
+    width: 90%;
+  }
+
+  .progreso {
+    font-size: 14px;
+  }
+
+  li {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .box {
+    padding: 8px 10px;
+    margin-top: 40px;
+  }
+
+  .bandera {
+    width: 100%;
+  }
+
+  .opcionRespuesta,
+  .continuar,
+  .pistaBtn {
+    width: 100%;
+    font-size: 12px;
+  }
+
+  .progreso {
+    font-size: 12px;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  li {
+    font-size: 10px;
+  }
 }

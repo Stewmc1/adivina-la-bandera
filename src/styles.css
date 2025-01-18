@@ -2,4 +2,18 @@ body {
   background-image: url(/assets/fotoDeFondo.jpeg);
   background-size: cover;
   font-family: cursive;
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  body {
+    background-size: contain;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    background-image: none;
+    background-color: #f4f4f4;
+  }
 }
