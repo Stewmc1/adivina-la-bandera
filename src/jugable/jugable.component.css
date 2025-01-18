@@ -9,10 +9,10 @@
 }
 
 .bandera {
-  width: 90%;
-  max-width: 410px;
-  height: auto;
-  object-fit: contain;
+  width: 100%;
+  max-width: 400px;
+  height: 250px;
+  object-fit: cover;
   margin: 0 auto;
 }
 
@@ -142,7 +142,8 @@ li {
   }
 
   .bandera {
-    width: 80%;
+    max-width: 300px;
+    height: 200px;
   }
 
   .opcionRespuesta,
@@ -167,7 +168,8 @@ li {
   }
 
   .bandera {
-    width: 100%;
+    max-width: 250px;
+    height: 150px;
   }
 
   .opcionRespuesta,
