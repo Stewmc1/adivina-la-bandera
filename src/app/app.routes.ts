@@ -8,6 +8,7 @@ import { JugarContinenteComponent } from './jugar-continente/jugar-continente.co
 import { ResultadosComponent } from '../resultados/resultados.component';
 
 export const routes: Routes = [
+  { path: '', component: MenuJugarComponent },
   { path: 'menu', component: MenuJugarComponent },
   { path: 'jugable', component: JugableComponent },
   { path: 'configuracion', component: ConfiguracionComponent },
