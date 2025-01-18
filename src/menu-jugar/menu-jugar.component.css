@@ -10,8 +10,8 @@
   border-radius: 8px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
   text-align: center;
-  width: 90%; /* Diseño fluido */
-  max-width: 600px; /* Limita el tamaño en pantallas grandes */
+  width: 90%;
+  max-width: 600px;
   height: 600px;
   max-height: 600px;
   margin: auto;
