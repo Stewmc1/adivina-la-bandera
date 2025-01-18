@@ -1,0 +1,59 @@
+<div class="box">
+  <div class="progreso">
+    <ul>
+      <li>Ronda: {{ totalJugadas }}</li>
+      <li class="banderasJugadas">
+        Banderas acertadas: {{ respuestasCorrectas }} / {{ rondasTotales }}
+      </li>
+      <br />
+      <li class="tiempo">Tiempo: {{ tiempoTranscurrido }}</li>
+    </ul>
+    <br />
+    <button class="sonido" (click)="cambiarSonidos()">
+      <img
+        [src]="
+          sonidosActivados
+            ? 'assets/volumenActivado.png'
+            : 'assets/volumenTachado.png'
+        "
+        alt="Sonido"
+        width="30"
+        height="30"
+      />
+    </button>
+  </div>
+  <div class="contenerdorBandera">
+    <img
+      class="bandera"
+      [src]="opcionCorrecta.flags.png"
+      [alt]="opcionCorrecta.flags.alt"
+    />
+  </div>
+  <form>
+    <div *ngFor="let opcion of opciones">
+      <input
+        class="opcionRespuesta"
+        type="button"
+        [id]="opcion.name.common"
+        [value]="opcion.name.common"
+        [ngClass]="{
+          correcto: opcion['estado'] === 'correcto',
+          incorrecto: opcion['estado'] === 'incorrecto'
+        }"
+        (click)="manejarRespuesta(opcion)"
+        [disabled]="seleccionoRespuesta"
+      />
+    </div>
+  </form>
+
+  <button
+    class="continuar"
+    *ngIf="seleccionoRespuesta && !juegoTerminado"
+    (click)="continuar()"
+  >
+    Continuar
+  </button>
+  <div *ngIf="juegoTerminado">
+    <h2>{{ mensajeFinal }}</h2>
+  </div>
+</div>

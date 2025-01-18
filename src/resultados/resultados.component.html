@@ -1,0 +1,42 @@
+<div class="box">
+  <h2>Resultados</h2>
+
+  <h4>
+    Tuviste {{ respuestasCorrectas }} correctas de {{ rondasTotales }} y lo
+    hiciste en {{ tiempoTranscurrido }}.
+  </h4>
+
+  <div class="menu-container">
+    <div class="dropdown">
+      <button class="dropdown-button">Correctas</button>
+      <ul class="dropdown-menu">
+        <li *ngFor="let pais of paisesCorrectos">{{ pais }}</li>
+      </ul>
+    </div>
+
+    <div class="dropdown">
+      <button class="dropdown-button">Incorrectas</button>
+      <ul class="dropdown-menu">
+        <li *ngFor="let pais of paisesIncorrectos">{{ pais }}</li>
+      </ul>
+    </div>
+  </div>
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <button class="btn" routerLink="/menu">Volver al inicio</button>
+</div>

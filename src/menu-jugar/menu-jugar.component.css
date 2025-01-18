@@ -1,0 +1,44 @@
+.box {
+  background: rgb(107, 101, 207);
+  background: linear-gradient(
+    173deg,
+    rgba(107, 101, 207, 1) 11%,
+    rgba(94, 94, 223, 1) 50%,
+    rgba(0, 212, 255, 1) 83%
+  );
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  width: 600px;
+  height: 600px;
+  margin: auto;
+  margin-top: 120px;
+}
+
+.btn {
+  border: none;
+  background: rgb(215, 226, 85);
+  background: radial-gradient(
+    circle,
+    rgba(215, 226, 85, 1) 29%,
+    rgba(212, 151, 64, 1) 84%
+  );
+  color: #000000;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.7s;
+  width: 300px;
+  height: 45px;
+}
+.btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.bandera {
+  width: 500px;
+  height: 350px;
+  object-position: center;
+}

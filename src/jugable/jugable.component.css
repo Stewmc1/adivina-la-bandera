@@ -1,0 +1,130 @@
+.opcion {
+  height: 100%;
+  width: 100%;
+}
+
+.contenedorBandera {
+  width: auto;
+  justify-content: center;
+}
+
+.bandera {
+  width: 410px;
+  height: 350px;
+  object-fit: contain;
+  border: 1px solid transparent;
+  display: block;
+  margin: 0 auto;
+}
+
+.box {
+  background: rgb(107, 101, 207);
+  background: linear-gradient(
+    173deg,
+    rgba(107, 101, 207, 1) 11%,
+    rgba(94, 94, 223, 1) 50%,
+    rgba(0, 212, 255, 1) 83%
+  );
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 600px;
+  height: 750px;
+  margin: auto;
+  margin-top: 120px;
+  position: relative;
+}
+
+.opcionRespuesta {
+  border: none;
+  background: #cef1d1;
+  color: #000000;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.1s;
+  margin: 15px;
+  width: 300px;
+}
+.opcionRespuesta:hover {
+  transform: scale(1.1);
+}
+
+.opcionRespuesta.correcto {
+  background-color: #4caf50;
+  color: white;
+}
+
+.opcionRespuesta.incorrecto {
+  background-color: #f44336;
+  color: white;
+}
+
+.opcionRespuesta:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.continuar {
+  border: none;
+  background: #cef1d1;
+  color: #000000;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.1s;
+  margin: 15px;
+  width: 300px;
+  align-items: center;
+}
+
+.continuar:hover {
+  transform: scale(1.1);
+}
+
+.progreso {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  top: 0px;
+  left: 0;
+  display: float;
+}
+
+li {
+  float: left;
+}
+
+.banderasJugadas {
+  float: right;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+.sonido {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  float: right;
+}
+
+.sonido img {
+  display: block;
+}
+
+.tiempo {
+  display: block;
+  text-decoration: none;
+  list-style-type: none;
+}

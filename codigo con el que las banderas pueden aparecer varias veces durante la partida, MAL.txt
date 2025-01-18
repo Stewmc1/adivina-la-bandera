@@ -1,0 +1,98 @@
+import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
+import * as countriesData from '../assets/countries.json';
+import { CommonModule } from '@angular/common';
+
+export interface PaisDto {
+  flags: {
+    png: string;
+    svg: string;
+    alt: string;
+  };
+  name: {
+    common: string;
+    official: string;
+    nativeName: {
+      ara?: {
+        official: string;
+        common: string;
+      };
+    };
+  };
+  capital: string[];
+  region: string;
+  estado?: string;
+}
+
+@Component({
+  selector: 'app-jugable',
+  imports: [CommonModule],
+  templateUrl: './jugable.component.html',
+  styleUrl: './jugable.component.css',
+})
+export class JugableComponent {
+  data: PaisDto[] = (countriesData as any).default; //Todos los paises
+  opciones: PaisDto[] = []; //Opciones
+  opcionCorrecta!: PaisDto; //Bandera que se muestr
+  respuestasCorrectas = 0; //Numero de respuestas correctas
+  seleccionoRespuesta = false; //Indicia si ya eligio una respuesta
+  juegoTerminado = false; //Indica si ya se jugaron todas las banderas
+  totalJugadas = 0; //Contador de cuantas se van jugando
+  totalBanderas = this.data.length; //Total de banderas
+
+  constructor() {}
+
+  ngOnInit() {
+    this.seleccionarOpciones();
+  }
+
+  //Si ya se jugaron todas las banderas
+  seleccionarOpciones() {
+    if (this.juegoTerminado) {
+      return;
+    }
+
+    //Reinicia el estado en cada ronda
+    this.opciones.forEach((opcion) => delete opcion['estado']);
+
+    //Reinicia el estado del juego
+    this.seleccionoRespuesta = false;
+
+    //Filtra paises no jugados
+    const shuffled = [...this.data].sort(() => Math.random() - 0.5);
+
+    //Selecciona 4 opciones y una de ellas correcta
+    this.opciones = shuffled.slice(0, 4);
+    this.opcionCorrecta =
+      this.opciones[Math.floor(Math.random() * this.opciones.length)];
+
+    //Actualiza el contador
+    this.totalJugadas += 1;
+
+    //Verifica si ya se jugaron todas las banderas
+    if (this.totalJugadas === this.totalBanderas) {
+      this.juegoTerminado = true;
+    }
+  }
+
+  //Evita seleccionar varias
+  manejarRespuesta(opcion: PaisDto) {
+    if (this.seleccionoRespuesta) return;
+    this.seleccionoRespuesta = true;
+
+    //Verifica si la respuesta es la correcta
+    if (opcion.name.common === this.opcionCorrecta.name.common) {
+      this.respuestasCorrectas++;
+      opcion['estado'] = 'correcto'; //Resalta la opcion correcta
+    } else {
+      opcion['estado'] = 'incorrecto'; //Resalta la opcion incorrecta
+      this.opcionCorrecta['estado'] = 'correcto'; //Resalta la opcion correcta para que el usuario aprenda cual era
+    }
+  }
+
+  continuar() {
+    //Reinicia el estado de las opciones
+    this.opciones.forEach((opcion) => delete opcion.estado);
+    this.seleccionarOpciones();
+  }
+}

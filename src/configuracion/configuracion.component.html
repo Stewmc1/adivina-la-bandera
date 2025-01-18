@@ -1,0 +1,35 @@
+<div class="box">
+  <h2>Configura el juego a tu gusto!</h2>
+  <button class="sonido" (click)="cambiarSonidos()">
+    <img
+      [src]="
+        sonidosActivados
+          ? 'assets/volumenActivado.png'
+          : 'assets/volumenTachado.png'
+      "
+      alt="Sonido"
+      width="30"
+      height="30"
+    />
+  </button>
+  <h4>Elige cuantas rondas quieres jugar</h4>
+  <input
+    type="range"
+    id="rangoCustom"
+    min="25"
+    max="250"
+    step="1"
+    value="250"
+  />
+  <p>Valor seleccionado: <span id="rangoValor">250</span></p>
+  <br />
+  <br />
+  <h3>Elige el modo de juego</h3>
+  <button class="btn" routerLink="/capitales">Jugar con capitales</button>
+  <br />
+  <br />
+  <button class="btn" routerLink="/jugable">Jugar con nombres de países</button>
+  <br />
+  <br />
+  <button class="btn" routerLink="/continente">Por continentes</button>
+</div>

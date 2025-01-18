@@ -1,0 +1,159 @@
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import * as countriesData from '../assets/countries.json';
+import { CommonModule } from '@angular/common';
+import { ConfiguracionService } from '../configuracion/configuracion.service';
+
+export interface PaisDto {
+  flags: {
+    png: string;
+    svg: string;
+    alt: string;
+  };
+  name: {
+    common: string;
+    official: string;
+    nativeName: {
+      ara?: {
+        official: string;
+        common: string;
+      };
+    };
+  };
+  capital: string[];
+  region: string;
+  estado?: string;
+}
+
+@Component({
+  selector: 'app-jugable',
+  imports: [CommonModule],
+  templateUrl: './jugable.component.html',
+  styleUrl: './jugable.component.css',
+})
+export class JugableComponent implements OnInit {
+  data: PaisDto[] = (countriesData as any).default; // Todos los países
+  opciones: PaisDto[] = []; // Opciones
+  opcionCorrecta!: PaisDto; // Bandera que se muestra
+  respuestasCorrectas = 0; // Número de respuestas correctas
+  seleccionoRespuesta = false; // Indica si ya eligió una respuesta
+  juegoTerminado = false; // Indica si ya se jugaron todas las banderas
+  totalJugadas = 0; // Contador de cuántas rondas se jugaron
+  totalBanderas = this.data.length; // Total de banderas
+  paisesJugados: Set<string> = new Set(); // Para evitar que una bandera se repita como bandera
+  mensajeFinal = ''; // Mensaje final cuando se termina el juego
+  rondasTotales: number = 0; // Total de rondas a jugar
+  banderas: any[] = []; //Lista de banderas
+  banderaActual: any = null;
+
+  correctoAudio = new Audio('/assets/correcto.mp3'); //Archivo del audio de correcto
+  incorrectoAudio = new Audio('/assets/incorrecto.mp3'); //Archivo del audio de incorrecto
+  sonidosActivados = true; //Para habilitar o deshabilitar el audio dependiendo de lo que quiera el usuario
+
+  constructor(private configuracionService: ConfiguracionService) {}
+
+  ngOnInit() {
+    this.rondasTotales = this.configuracionService.getRondasSeleccionadas(); // Obtén el valor del servicio
+    this.seleccionarOpciones();
+  }
+
+  // Si ya se jugaron todas las banderas
+  seleccionarOpciones() {
+    if (this.totalJugadas === this.rondasTotales) {
+      this.juegoTerminado = true;
+      this.mensajeFinal = `Juego Terminado! Respuestas correctas: ${this.respuestasCorrectas} de ${this.totalBanderas}`;
+      return;
+    }
+
+    // Reinicia el estado en cada ronda
+    this.opciones.forEach((opcion) => delete opcion['estado']);
+    this.seleccionoRespuesta = false;
+
+    // Filtra los países que ya se han jugado como bandera
+    const noJugados = this.data.filter(
+      (pais) => !this.paisesJugados.has(pais.name.common)
+    );
+    const shuffled = [...noJugados].sort(() => Math.random() - 0.5); // Barajamos los países no jugados
+
+    // Si hay menos de 4 países no jugados, agregamos países ya jugados, pero no la bandera correcta
+    let opcionesRestantes = shuffled.slice(0, 4);
+
+    if (opcionesRestantes.length < 4) {
+      // Completamos las opciones con países repetidos, pero sin incluir la bandera correcta
+      const paisesYaJugados = this.data.filter(
+        (pais) =>
+          this.paisesJugados.has(pais.name.common) &&
+          pais.name.common !== this.opcionCorrecta?.name.common
+      );
+
+      while (opcionesRestantes.length < 4) {
+        const randomPais =
+          paisesYaJugados[Math.floor(Math.random() * paisesYaJugados.length)];
+        if (!opcionesRestantes.includes(randomPais)) {
+          opcionesRestantes.push(randomPais);
+        }
+      }
+    }
+
+    // Seleccionamos una opción correcta aleatoria entre las opciones
+    this.opcionCorrecta =
+      opcionesRestantes[Math.floor(Math.random() * opcionesRestantes.length)];
+
+    // Marcar la bandera seleccionada como jugada
+    this.paisesJugados.add(this.opcionCorrecta.name.common);
+
+    // Actualiza el contador de rondas jugadas
+    this.totalJugadas += 1;
+
+    // Asegurarse de que las opciones son únicas
+    this.opciones = this.eliminarDuplicados(opcionesRestantes);
+  }
+
+  // Elimina duplicados en las opciones
+  eliminarDuplicados(opciones: PaisDto[]): PaisDto[] {
+    return [...new Set(opciones.map((pais) => pais.name.common))].map(
+      (name) => opciones.find((pais) => pais.name.common === name)!
+    );
+  }
+
+  // Maneja la respuesta del jugador
+  manejarRespuesta(opcion: PaisDto) {
+    if (this.seleccionoRespuesta) return;
+    this.seleccionoRespuesta = true;
+
+    // Verifica si la respuesta es correcta
+    if (opcion.name.common === this.opcionCorrecta.name.common) {
+      this.respuestasCorrectas++;
+      opcion['estado'] = 'correcto'; // Resalta la opción correcta
+      if (this.sonidosActivados) {
+        this.correctoAudio.play(); //Reproduce el audio de respuesta correcta
+      }
+    } else {
+      opcion['estado'] = 'incorrecto'; // Resalta la opción incorrecta
+      this.opcionCorrecta['estado'] = 'correcto'; // Resalta la opción correcta para que el usuario aprenda
+      if (this.sonidosActivados) {
+        this.incorrectoAudio.play(); //Reproduce el audio de respuesta incorrecta
+      }
+    }
+
+    // Si estamos en la última ronda, mostramos el mensaje de juego terminado
+    if (this.totalJugadas === this.totalBanderas) {
+      this.juegoTerminado = true;
+      this.mensajeFinal = `Juego Terminado! Respuestas correctas: ${this.respuestasCorrectas} de ${this.totalBanderas}`;
+    }
+  }
+
+  // Continuar con la siguiente ronda
+  continuar() {
+    // Si el juego terminó, no hacer nada
+    if (this.juegoTerminado) return;
+
+    // Reinicia el estado de las opciones
+    this.opciones.forEach((opcion) => delete opcion.estado);
+    this.seleccionarOpciones();
+  }
+
+  cambiarSonidos() {
+    this.sonidosActivados = !this.sonidosActivados;
+  }
+}

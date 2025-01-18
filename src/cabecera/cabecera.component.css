@@ -1,0 +1,27 @@
+div {
+  background: rgb(107, 101, 207);
+  background: linear-gradient(
+    173deg,
+    rgba(107, 101, 207, 1) 11%,
+    rgba(94, 94, 223, 1) 50%,
+    rgba(0, 212, 255, 1) 83%
+  );
+  width: 100%;
+  height: 60px;
+  border-radius: 5px;
+  margin: 0px;
+  padding: 0px;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+h3 {
+  padding: 5px;
+  margin: 15px;
+  height: 20px;
+  width: 170px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 2px rgba(0, 0.3, 0.3, 0.6);
+}
