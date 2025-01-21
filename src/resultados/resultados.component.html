@@ -8,17 +8,39 @@
 
   <div class="menu-container">
     <div class="dropdown">
-      <button class="dropdown-button">Correctas</button>
-      <ul class="dropdown-menu">
-        <li *ngFor="let pais of paisesCorrectos">{{ pais }}</li>
+      <button class="dropdown-button" [disabled]="infoPais">Correctas</button>
+      <ul class="dropdown-menu" *ngIf="!infoPais">
+        <li
+          *ngFor="let pais of paisesCorrectos"
+          (click)="consigueInfoPais(pais)"
+        >
+          {{ pais }}
+        </li>
       </ul>
     </div>
 
     <div class="dropdown">
-      <button class="dropdown-button">Incorrectas</button>
-      <ul class="dropdown-menu">
-        <li *ngFor="let pais of paisesIncorrectos">{{ pais }}</li>
+      <button class="dropdown-button" [disabled]="infoPais">Incorrectas</button>
+      <ul class="dropdown-menu" *ngIf="!infoPais">
+        <li
+          *ngFor="let pais of paisesIncorrectos"
+          (click)="consigueInfoPais(pais)"
+        >
+          {{ pais }}
+        </li>
       </ul>
+    </div>
+  </div>
+
+  <div class="modal" *ngIf="infoPais">
+    <div class="modal-content">
+      <span class="close" (click)="cierraInfo()">&times;</span>
+      <h3>{{ paisSeleccionado }}</h3>
+      <p><strong>Capital:</strong> {{ capital }}</p>
+      <p><strong>Población:</strong> {{ poblacion }}</p>
+      <p><strong>Países vecinos:</strong> {{ vecinos }}</p>
+      <p><strong>Temperatura promedio:</strong> {{ temperatura }} °C</p>
+      <p><strong>Posición geográfica:</strong> {{ posicionGeografica }}</p>
     </div>
   </div>
 

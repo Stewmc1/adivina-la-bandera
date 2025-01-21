@@ -10,12 +10,12 @@
   border-radius: 8px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
   text-align: center;
-  width: 90%; /* Diseño fluido */
-  max-width: 600px; /* Limita el tamaño en pantallas grandes */
-  height: 600px;
-  max-height: 600px;
+  width: 90%;
+  max-width: 700px;
+  height: 700px;
+  max-height: 700px;
   margin: auto;
-  margin-top: 50px; /* Reduce el margen superior */
+  margin-top: 50px;
 }
 
 .btn {
@@ -31,11 +31,11 @@
   border-radius: 50px;
   cursor: pointer;
   transition: 0.7s;
-  width: 100%; /* Hazlo responsivo */
+  width: 100%;
   max-width: 300px;
   height: 45px;
-  margin: 0 auto; /* Centra el botón */
-  margin-top: 60%;
+  margin: 0 auto;
+  margin-top: 70%;
 }
 
 .btn:hover {
@@ -45,9 +45,9 @@
 
 .menu-container {
   display: flex;
-  flex-wrap: wrap; /* Permite que los elementos se apilen en pantallas pequeñas */
-  gap: 20px; /* Reduce el espacio entre los elementos */
-  justify-content: center; /* Centra los menús desplegables */
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
 }
 
 .dropdown {
@@ -69,10 +69,20 @@
   cursor: pointer;
   border-radius: 5px;
   width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .dropdown-button:hover {
   background-color: #543210;
+  transition: 1s;
+}
+
+button:disabled {
+  background: gray;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .dropdown-menu {
@@ -100,7 +110,9 @@
   padding: 3px 9px;
   font-size: 14px;
   color: black;
-  white-space: nowrap;
+  white-space: normal;
+  word-wrap: break-word;
+  text-align: left;
 }
 
 .dropdown-menu li:hover {
@@ -117,6 +129,48 @@
   display: block;
 }
 
+.dropdown:hover .dropdown-menu:not([hidden]) {
+  display: block;
+}
+
+.modal {
+  position: fixed;
+  margin-top: 20px;
+  width: 42%;
+  height: 55%;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: rgb(0, 212, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 212, 255, 1) 20%,
+    rgba(94, 94, 223, 1) 50%,
+    rgba(107, 101, 207, 1) 80%
+  );
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  height: 90%;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   .box {
     margin-top: 20px;
@@ -130,6 +184,11 @@
 
   .menu-container {
     gap: 10px;
+  }
+
+  .dropdown-button {
+    font-size: 14px;
+    width: 120px;
   }
 }
 
@@ -146,5 +205,11 @@
 
   .dropdown-menu {
     font-size: 12px;
+  }
+
+  .btn {
+    font-size: 12px;
+    padding: 6px 12px;
+    margin-top: 15px;
   }
 }
