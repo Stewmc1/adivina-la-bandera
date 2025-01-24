@@ -6,10 +6,12 @@
 
 
 <--Resultados-->
--Informacion extra sobre esos paises(Poblacion, tamaño, etc) (conexion atraves de wiki)
+
 
 <--A largo plazo-->
 
 Posibilidad de crearse una cuenta
 Conexion a una base de datos
 Rankings sobre tiempo requerido para tener todas correctas
+
+<--Bugs-->

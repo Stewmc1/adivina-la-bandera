@@ -125,8 +125,10 @@ export class JugarCapitalesComponent implements OnInit {
 
     // Filtra los países que ya se han jugado como bandera
     const noJugados = this.data.filter(
-      (pais) => !this.paisesJugados.has(pais.name.common)
+      (pais) =>
+        !this.paisesJugados.has(pais.name.common) && pais.capital.length > 0
     );
+
     const shuffled = [...noJugados].sort(() => Math.random() - 0.5); // Barajamos los países no jugados
 
     // Si hay menos de 4 países no jugados, agregamos países ya jugados, pero no la bandera correcta
@@ -137,17 +139,23 @@ export class JugarCapitalesComponent implements OnInit {
       const paisesYaJugados = this.data.filter(
         (pais) =>
           this.paisesJugados.has(pais.name.common) &&
-          pais.name.common !== this.opcionCorrecta?.name.common
+          pais.name.common !== this.opcionCorrecta?.name.common &&
+          pais.capital.length > 0
       );
 
       while (opcionesRestantes.length < 4) {
         const randomPais =
           paisesYaJugados[Math.floor(Math.random() * paisesYaJugados.length)];
-        if (!opcionesRestantes.includes(randomPais)) {
+        if (randomPais && !opcionesRestantes.includes(randomPais)) {
           opcionesRestantes.push(randomPais);
         }
       }
     }
+
+    // Asegurarse de que no haya opciones vacías o nulas
+    opcionesRestantes = opcionesRestantes.filter(
+      (opcion) => opcion && opcion.name && opcion.capital.length > 0
+    );
 
     // Seleccionamos una opción correcta aleatoria entre las opciones
     this.opcionCorrecta =
@@ -159,15 +167,15 @@ export class JugarCapitalesComponent implements OnInit {
     // Actualiza el contador de rondas jugadas
     this.totalJugadas += 1;
 
-    // Asegurarse de que las opciones son únicas
+    // Asegurarse de que las opciones son únicas y válidas
     this.opciones = this.eliminarDuplicados(opcionesRestantes);
   }
 
   // Elimina duplicados en las opciones
   eliminarDuplicados(opciones: PaisDto[]): PaisDto[] {
-    return [...new Set(opciones.map((pais) => pais.name.common))].map(
-      (name) => opciones.find((pais) => pais.name.common === name)!
-    );
+    return [...new Set(opciones.map((pais) => pais.name.common))]
+      .map((name) => opciones.find((pais) => pais.name.common === name)!)
+      .filter(Boolean); // Filtra valores vacíos o nulos
   }
 
   // Maneja la respuesta del jugador

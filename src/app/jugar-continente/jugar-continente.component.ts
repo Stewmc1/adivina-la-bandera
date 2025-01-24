@@ -111,6 +111,7 @@ export class JugarContinenteComponent implements OnInit {
   }
 
   // Si ya se jugaron todas las banderas
+  // Si ya se jugaron todas las banderas
   seleccionarOpciones() {
     this.pistaVisible = false; // La pista está oculta
     this.pistaUsada = false; // La pista aún no ha sido utilizada
@@ -128,7 +129,8 @@ export class JugarContinenteComponent implements OnInit {
 
     // Filtra los países que ya se han jugado como bandera
     const noJugados = this.data.filter(
-      (pais) => !this.paisesJugados.has(pais.name.common)
+      (pais) =>
+        !this.paisesJugados.has(pais.name.common) && pais.capital.length > 0
     );
 
     // Extraemos los continentes únicos (regiones)
@@ -163,18 +165,21 @@ export class JugarContinenteComponent implements OnInit {
         }
       }
 
+      // Elimina el continente seleccionado para evitar elegirlo nuevamente
       continentesPosibles.splice(continentesPosibles.indexOf(continente), 1);
     }
 
+    // Si no alcanzamos 4 opciones, completamos con países ya jugados
     if (opcionesRestantes.length < 4) {
       const paisesYaJugados = this.data.filter(
         (pais) =>
           this.paisesJugados.has(pais.name.common) &&
           !selectedContinents.has(pais.region) &&
-          pais.name.common !== this.opcionCorrecta?.name.common
+          pais.name.common !== this.opcionCorrecta?.name.common &&
+          pais.capital.length > 0
       );
 
-      while (opcionesRestantes.length < 4) {
+      while (opcionesRestantes.length < 4 && paisesYaJugados.length > 0) {
         const randomPais =
           paisesYaJugados[Math.floor(Math.random() * paisesYaJugados.length)];
         if (!selectedContinents.has(randomPais.region)) {
@@ -184,9 +189,16 @@ export class JugarContinenteComponent implements OnInit {
       }
     }
 
+    // Asegurarse de que las opciones sean únicas y válidas
+    opcionesRestantes = opcionesRestantes.filter(
+      (opcion) => opcion && opcion.name && opcion.capital.length > 0
+    );
+
+    // Seleccionamos una opción correcta aleatoria entre las opciones
     this.opcionCorrecta =
       opcionesRestantes[Math.floor(Math.random() * opcionesRestantes.length)];
 
+    // Marcar la bandera seleccionada como jugada
     this.paisesJugados.add(this.opcionCorrecta.name.common);
     this.totalJugadas += 1;
 
