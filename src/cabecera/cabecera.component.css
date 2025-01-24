@@ -7,7 +7,8 @@ div {
   );
   width: 100%;
   height: 60px;
-  border-radius: 5px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
   margin: 0;
   padding: 0;
   position: fixed;
@@ -21,7 +22,7 @@ div {
 
 .btn {
   border: none;
-  padding: 25px;
+  padding: 20px;
   background: rgb(215, 226, 85);
   background: radial-gradient(
     circle,
@@ -31,12 +32,11 @@ div {
   color: #000000;
   border-radius: 8px;
   cursor: pointer;
-  transition: 1s;
-  margin: 0px;
+  transition: all 0.3s ease-in-out;
 }
 .btn:hover {
   transform: scale(1);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0.8, 0.8);
 }
 
 @media (max-width: 768px) {
@@ -44,10 +44,8 @@ div {
     height: 50px;
   }
 
-  h3 {
-    font-size: 16px;
-    padding: 4px;
-    width: auto;
+  .btn {
+    padding: 16px;
   }
 }
 
@@ -56,8 +54,7 @@ div {
     height: 40px;
   }
 
-  h3 {
-    font-size: 14px;
-    padding: 3px;
+  .btn {
+    padding: 12px;
   }
 }
