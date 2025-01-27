@@ -12,11 +12,20 @@
   text-align: center;
   width: 90%;
   max-width: 700px;
-  height: 700px;
-  max-height: 700px;
+  height: 600px;
+  max-height: 600px;
+  min-height: 80vh;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 5%;
   position: relative;
+  z-index: 1;
+}
+
+h2 {
+  font-size: 2 rem;
+}
+h4 {
+  font-size: 1.2 rem;
 }
 
 .btn {
@@ -36,7 +45,7 @@
   max-width: 300px;
   height: 45px;
   margin: 0 auto;
-  margin-top: 55%;
+  margin-top: 5%;
 }
 
 .btn:hover {
@@ -47,7 +56,7 @@
 .menu-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 10px;
   justify-content: center;
 }
 
@@ -103,10 +112,10 @@ button:disabled {
   list-style: none;
   border-radius: 5px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  min-width: 150px;
-  max-width: 150px;
+  max-width: 100%;
   z-index: 1000;
   min-width: 100%;
+  overflow-y: auto;
   transition: opacity 0.4s ease-in-out;
 }
 
@@ -150,7 +159,7 @@ button:disabled {
   margin-top: 20px;
   width: 80%;
   max-width: 700px;
-  height: 55%;
+  height: 46%;
   max-height: 500px;
   background-color: transparent;
   display: flex;
